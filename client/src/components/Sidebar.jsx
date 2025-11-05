@@ -1,5 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  Home,
+  Folder,
+  CreditCard,
+  DollarSign,
+  TrendingUp,
+  PiggyBank,
+  BookOpen,
+  User,
+} from "lucide-react";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -55,7 +65,7 @@ export default function Sidebar() {
               justifyContent: isOpen ? "flex-start" : "center",
             }}
           >
-            <span style={{ fontSize: "1.2rem" }}>{icon}</span>
+            <span style={{ display: "flex", alignItems: "center" }}>{icon}</span>
             {isOpen && <span style={{ marginLeft: "10px" }}>{label}</span>}
           </Link>
         ))}
@@ -65,14 +75,14 @@ export default function Sidebar() {
 }
 
 const menuItems = [
-  { path: "/", label: "Inicio", icon: "🏠" },
-  { path: "/portafolios", label: "Portafolios", icon: "📁" },
-  { path: "/transacciones", label: "Transacciones", icon: "💳" },
-  { path: "/precios", label: "Precios", icon: "💰" },
-  { path: "/rendimiento", label: "Rendimiento", icon: "📈" },
-  { path: "/ahorro", label: "Ahorro", icon: "💵" },
-  { path: "/aprendizaje", label: "Aprendizaje", icon: "📚" },
-  { path: "/perfil", label: "Perfil", icon: "👤" },
+  { path: "/", label: "Inicio", icon: <Home size={20} color="white" /> },
+  { path: "/portafolios", label: "Portafolios", icon: <Folder size={20} color="white" /> },
+  { path: "/transacciones", label: "Transacciones", icon: <CreditCard size={20} color="white" /> },
+  { path: "/precios", label: "Precios", icon: <DollarSign size={20} color="white" /> },
+  { path: "/rendimiento", label: "Rendimiento", icon: <TrendingUp size={20} color="white" /> },
+  { path: "/ahorro", label: "Ahorro", icon: <PiggyBank size={20} color="white" /> },
+  { path: "/aprendizaje", label: "Aprendizaje", icon: <BookOpen size={20} color="white" /> },
+  { path: "/perfil", label: "Perfil", icon: <User size={20} color="white" /> },
 ];
 
 const linkStyle = {
