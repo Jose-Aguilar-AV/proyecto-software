@@ -26,7 +26,7 @@ export default function Portafolios() {
       {/* Encabezado con título y botón lateral */}
       <div style={headerRow}>
         <div>
-          <h2 style={titleStyle}>💼 Mis Portafolios</h2>
+          <h2 style={titleStyle}>Mis Portafolios</h2>
           <p style={subtitleStyle}>
             Visualiza y gestiona tus portafolios de inversión simulados.
           </p>

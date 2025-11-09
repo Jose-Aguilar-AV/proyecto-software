@@ -2,7 +2,7 @@ export default function Ahorro() {
   return (
     <div style={pageStyle}>
       <header style={headerStyle}>
-        <h2 style={titleStyle}>💰 Ahorro</h2>
+        <h2 style={titleStyle}>Ahorro</h2>
         <p style={subtitleStyle}>
           Administra tus cuentas y estrategias de ahorro eficientemente.
         </p>

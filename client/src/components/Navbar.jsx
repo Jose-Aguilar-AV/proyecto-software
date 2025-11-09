@@ -1,4 +1,17 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Navbar() {
+  const nav = useNavigate();
+
+  const logout = () => {
+    // 🧹 Limpiar todo lo relacionado con la sesión
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    // 🔁 Redirigir al login
+    nav("/login");
+  };
+
   return (
     <header
       style={{
@@ -26,6 +39,7 @@ export default function Navbar() {
       </h1>
 
       <button
+        onClick={logout} // ✅ acción de cerrar sesión
         style={{
           backgroundColor: "var(--uis-green-light)",
           color: "white",

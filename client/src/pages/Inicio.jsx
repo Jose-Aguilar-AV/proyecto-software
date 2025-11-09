@@ -2,7 +2,7 @@ export default function Inicio() {
   return (
     <div style={pageStyle}>
       <header style={headerStyle}>
-        <h2 style={titleStyle}>🏠 Inicio</h2>
+        <h2 style={titleStyle}> Inicio</h2>
         <p style={subtitleStyle}>
           Bienvenido al panel principal de transacciones.
         </p>

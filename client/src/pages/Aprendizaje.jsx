@@ -2,7 +2,7 @@ export default function Aprendizaje() {
   return (
     <div style={pageStyle}>
       <header style={headerStyle}>
-        <h2 style={titleStyle}>📚 Aprendizaje</h2>
+        <h2 style={titleStyle}>Aprendizaje</h2>
         <p style={subtitleStyle}>
           Mejora tus conocimientos financieros y estrategias de inversión.
         </p>

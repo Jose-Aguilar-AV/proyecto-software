@@ -2,7 +2,7 @@ export default function Transacciones() {
   return (
     <div style={pageStyle}>
       <header style={headerStyle}>
-        <h2 style={titleStyle}>💹 Transacciones</h2>
+        <h2 style={titleStyle}>Transacciones</h2>
         <p style={subtitleStyle}>
           Visualiza y gestiona todas tus operaciones financieras.
         </p>

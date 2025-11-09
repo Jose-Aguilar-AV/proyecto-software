@@ -2,7 +2,7 @@ export default function Precios() {
   return (
     <div style={pageStyle}>
       <header style={headerStyle}>
-        <h2 style={titleStyle}>💲 Precios</h2>
+        <h2 style={titleStyle}>Precios</h2>
         <p style={subtitleStyle}>
           Consulta los precios actualizados de los activos disponibles.
         </p>

@@ -10,7 +10,7 @@ const data = [
 export default function Rendimiento() {
   return (
     <div style={pageStyle}>
-      <h2 style={titleStyle}>📊 Rendimiento</h2>
+      <h2 style={titleStyle}>Rendimiento</h2>
       <p style={subtitleStyle}>Visualiza el crecimiento de tus inversiones.</p>
       <div style={cardStyle}>
         <Chart data={data} />
