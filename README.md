@@ -2,6 +2,8 @@
 
 Plataforma web para simular y gestionar transacciones financieras, permitiendo a los usuarios visualizar su saldo, historial de transacciones y rendimiento de portafolios de inversión de manera clara e interactiva.
 
+Video explicativo: https://youtu.be/dR3F0sHz9ik?si=bnWjkHanNXIlsh-j
+
 ---
 
 ## Tecnologías utilizadas
@@ -17,8 +19,7 @@ Plataforma web para simular y gestionar transacciones financieras, permitiendo a
 ## Instalación
 
 1. Clonar el repositorio:
-git clone https://github.com/tu-usuario/tu-repositorio.git
-cd tu-repositorio
+git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/Jose-Aguilar-AV/proyecto-software.git)
 
 2. Instalar dependencias del frontend:
 cd client
