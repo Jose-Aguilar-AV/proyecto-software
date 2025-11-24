@@ -27,18 +27,17 @@ export default function Registro() {
     try {
       setLoading(true);
       // 1) Crear usuario
-      await api.post("/api/usuarios", {
+      await api.post("/register", {
         nombre: form.nombre.trim(),
         correo: form.correo.trim().toLowerCase(),
         contrasena: form.contrasena.trim(),
       });
 
       // 2) Login automático
-      const { data } = await api.post("/api/login", {
+      const { data } = await api.post("/login", {
         correo: form.correo.trim().toLowerCase(),
         contrasena: form.contrasena.trim(),
       });
-
       localStorage.setItem("token", data.token || "");
       localStorage.setItem("user", JSON.stringify(data.usuario || {}));
 

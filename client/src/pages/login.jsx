@@ -13,7 +13,7 @@ export default function Login() {
     setMensaje("");
 
     try {
-      const res = await api.post("/api/login", {
+      const res = await api.post("/login", {
         correo: correo.trim().toLowerCase(),
         contrasena: contrasena.trim(),
       });

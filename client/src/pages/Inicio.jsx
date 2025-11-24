@@ -1,47 +1,115 @@
-import { useUIStore } from "../store/useUIStore";
+import { useState, useEffect } from "react";
 
 export default function Inicio() {
-  const theme = useUIStore((s) => s.theme);
+  const [expandedCards, setExpandedCards] = useState({});
+  const [isFloatingExpanded, setIsFloatingExpanded] = useState(false);
+
+  // Expansión rápida de la tarjeta flotante con barra espaciadora
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.code === "Space") {
+        e.preventDefault();
+        setIsFloatingExpanded((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const toggleCard = (id) => {
+    setExpandedCards((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const cardsData = [
+    { id: "portafolios", title: "Portafolios", desc: "Visualiza y gestiona tus portafolios simulados.", details: "Aquí puedes crear múltiples portafolios, ver su rendimiento y balance, y analizar su composición con gráficas interactivas y métricas clave." },
+    { id: "transacciones", title: "Transacciones", desc: "Revisa tus compras y ventas recientes.", details: "Consulta todas las operaciones simuladas realizadas, con detalles de fecha, instrumento y cantidad, incluyendo filtros avanzados por tipo de inversión." },
+    { id: "precios", title: "Precios", desc: "Consulta precios actuales y históricos.", details: "Visualiza los precios de acciones, ETFs y otros instrumentos en tiempo real y con historial completo, permitiendo análisis de tendencias y comparaciones históricas." },
+    { id: "rendimiento", title: "Rendimiento", desc: "Analiza el desempeño de tus inversiones.", details: "Gráficos y estadísticas de rendimiento de cada portafolio y de los instrumentos individuales, destacando ganancias, pérdidas y volatilidad." },
+    { id: "ahorro", title: "Ahorro", desc: "Simula cuentas de ahorro y su crecimiento.", details: "Puedes probar diferentes tasas de interés y ver cómo se acumula tu capital con intereses compuestos en escenarios personalizados." },
+    { id: "aprendizaje", title: "Aprendizaje", desc: "Contenido educativo sobre finanzas.", details: "Guías y explicaciones sobre conceptos financieros, riesgos, rendimientos y diversificación para mejorar tu educación financiera." },
+    { id: "perfil", title: "Perfil", desc: "Gestiona tu información personal.", details: "Modifica nombre, correo, y cambia tu imagen de perfil para personalizar tu experiencia en la plataforma de manera segura." },
+  ];
 
   return (
-    <div className={`page-container ${theme}`} style={pageStyle}>
+    <div style={pageStyle}>
       <header style={headerStyle}>
         <h2 style={titleStyle}>Inicio</h2>
-        <p style={subtitleStyle}>
-          Bienvenido al panel principal de transacciones.
-        </p>
+        <p style={subtitleStyle}>Bienvenido al panel principal de transacciones.</p>
       </header>
 
       <section style={gridStyle}>
-        <div style={cardStyle}>
-          <h3 style={cardTitle}>Resumen General</h3>
-          <p>
-            Aquí podrás ver estadísticas rápidas, indicadores y accesos directos.
-          </p>
-        </div>
-
-        <div style={cardStyle}>
-          <h3 style={cardTitle}>Mi Portafolio</h3>
-          <p>
-            Consulta tus valores actuales, rendimientos y movimientos recientes.
-          </p>
-        </div>
-
-        <div style={cardStyle}>
-          <h3 style={cardTitle}>Inversiones Actuales</h3>
-          <p>
-            Visualiza tus posiciones activas y su desempeño en tiempo real.
-          </p>
-        </div>
+        {cardsData.map((card) => {
+          const isExpanded = expandedCards[card.id] || false;
+          return (
+            <div
+              key={card.id}
+              style={{
+                ...cardStyle,
+                cursor: "pointer",
+                backgroundColor: isExpanded ? "#f0fdf4" : "white",
+                position: "relative",
+              }}
+              onClick={() => toggleCard(card.id)}
+            >
+              <h3 style={cardTitle}>{card.title}</h3>
+              <p>{card.desc}</p>
+              <div
+                style={{
+                  maxHeight: isExpanded ? "300px" : "0px",
+                  overflow: "hidden",
+                  transition: "max-height 0.5s ease, padding 0.5s ease",
+                  padding: isExpanded ? "10px 0 0 0" : "0",
+                }}
+              >
+                <p>{card.details}</p>
+              </div>
+            </div>
+          );
+        })}
       </section>
+
+      {/* Tarjeta flotante */}
+      <div
+        style={{
+          ...floatingCardStyle,
+          bottom: "10px", // espacio para no invadir navbar
+          left: "260px",   // margen seguro a la izquierda
+          backgroundColor: isFloatingExpanded ? "#f0fdf4" : "white",
+        }}
+        onClick={() => setIsFloatingExpanded((prev) => !prev)}
+      >
+        <h3 style={cardTitle}>Sobre la Plataforma</h3>
+        <div
+          style={{
+            maxHeight: isFloatingExpanded ? "500px" : "0px",
+            overflow: "hidden",
+            transition: "max-height 0.5s ease, padding 0.5s ease",
+            padding: isFloatingExpanded ? "10px 0 0 0" : "0",
+          }}
+        >
+          <p>
+            Esta plataforma permite a los usuarios simular inversiones en acciones, ETFs y cuentas de ahorro, creando portafolios ficticios para aprender sobre los mercados financieros sin riesgo real.
+          </p>
+          <p>
+            <strong>Objetivos:</strong> ofrecer educación financiera, gestión de portafolios simulados, datos realistas y análisis de rendimiento.
+          </p>
+          <p>
+            <strong>Funcionalidades principales:</strong> registro de usuario, simulación de inversiones, creación de portafolios, gráficos y análisis de rendimiento, contenido educativo, y simulación de escenarios de mercado.
+          </p>
+          <p style={{ fontSize: "0.85rem", color: "#64748b", marginTop: "10px" }}>
+            Presiona la barra espaciadora para expandir/contraer rápidamente esta tarjeta.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
 
 const pageStyle = {
+  backgroundColor: "#f8fafc",
   minHeight: "100vh",
   padding: "30px",
-  transition: "background 0.3s ease, color 0.3s ease",
+  position: "static",
 };
 
 const headerStyle = {
@@ -65,12 +133,26 @@ const gridStyle = {
 };
 
 const cardStyle = {
-  background: "var(--card-bg)",
+  background: "white",
   borderRadius: "10px",
   padding: "20px",
   boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
   border: "1px solid #e2e8f0",
-  transition: "background 0.3s ease, color 0.3s ease",
+  transition: "all 0.3s ease",
+  position: "relative",
+  alignSelf: "start",
+};
+
+const floatingCardStyle = {
+  position: "fixed",
+  width: "350px",
+  borderRadius: "10px",
+  padding: "20px",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+  border: "1px solid #e2e8f0",
+  cursor: "pointer",
+  transition: "all 0.3s ease",
+  zIndex: 1000,
 };
 
 const cardTitle = {

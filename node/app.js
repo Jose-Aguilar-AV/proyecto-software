@@ -1,87 +1,64 @@
-import express from "express";
-import cors from "cors";
-import { conectarBD, sequelize } from "./database/db.js";import { obtenerMiUsuario } from "./controllers/UsuarioController.js";
-import { obtenerMiPerfil, guardarMiPerfil } from "./controllers/PerfilController.js";
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
+import { conectarBD, sequelize } from './database/db.js';
 
-// Modelos
-import { Usuario } from "./models/Usuario.js";
-import { PerfilUsuario } from "./models/PerfilUsuario.js";
+// modelos (se evalúan para asociaciones)
+import { Usuario } from './models/Usuario.js';
+import { PerfilUsuario } from './models/PerfilUsuario.js';
+import { Portafolio } from './models/Portafolio.js';
+import { Activo } from './models/Activo.js';
+import { Precio } from './models/Precio.js';
+import { Transaccion } from './models/Transaccion.js';
+import { Contenido } from './models/Contenido.js';
 
-// Controladores (usuarios)
-import {
-  crearUsuario,
-  loginUsuario,
-  actualizarUsuario,
-  obtenerUsuarios,
-  eliminarUsuario,
-} from "./controllers/UsuarioController.js";
-
-// Controladores (perfil)
-import {
-  obtenerPerfilPorUsuario,
-  guardarPerfilUsuario,
-} from "./controllers/PerfilController.js";
-
-// Middleware de auth
-import { auth } from "./middlewares/auth.js";
+// rutas
+import authRoutes from './routes/auth.routes.js';
+import usuariosRoutes from './routes/usuarios.routes.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // Relaciones
-Usuario.hasOne(PerfilUsuario, { foreignKey: "id_usuario" });
-PerfilUsuario.belongsTo(Usuario, { foreignKey: "id_usuario" });
+Usuario.hasOne(PerfilUsuario, { foreignKey: 'id_usuario' });
+PerfilUsuario.belongsTo(Usuario, { foreignKey: 'id_usuario' });
 
+Usuario.hasMany(Portafolio, { foreignKey: 'id_usuario' });
+Portafolio.belongsTo(Usuario, { foreignKey: 'id_usuario' });
 
+Activo.hasMany(Precio, { foreignKey: 'id_activo' });
+Precio.belongsTo(Activo, { foreignKey: 'id_activo' });
+
+Portafolio.hasMany(Transaccion, { foreignKey: 'id_portafolio' });
+Transaccion.belongsTo(Portafolio, { foreignKey: 'id_portafolio' });
+Transaccion.belongsTo(Activo, { foreignKey: 'id_activo' });
 
 // Healthcheck
-app.get("/api/health", (_req, res) => res.json({ ok: true }));
+app.get('/api/health', (_req, res) => res.json({ ok: true }));
 
-/* ===========================
-   Rutas públicas
-   =========================== */
-app.post("/api/usuarios", crearUsuario); // registro
-app.post("/api/login", loginUsuario);    // login (entrega token)
+// Rutas públicas
+app.use('/api/auth', authRoutes);
 
-/* ===========================
-   Rutas protegidas (requieren JWT)
-   =========================== */
-// Usuarios
-app.get("/api/usuarios", auth, obtenerUsuarios);
-app.put("/api/usuarios/:id", auth, actualizarUsuario);
-app.delete("/api/usuarios/:id", auth, eliminarUsuario);
-
-// Perfil de usuario
-app.get("/api/usuarios/:id/perfil", auth, obtenerPerfilPorUsuario);
-app.put("/api/usuarios/:id/perfil", auth, guardarPerfilUsuario);
-
-// Ruta de prueba del token
-app.get("/api/yo", auth, (req, res) => {
-  res.json({ mensaje: "Acceso permitido", user: req.user });
-});
+// Rutas protegidas
+app.use('/api/usuarios', usuariosRoutes);
 
 // Iniciar servidor
 const PORT = process.env.PORT || 4000;
 const iniciarServidor = async () => {
   try {
     await conectarBD();
-
-    // Sincroniza los modelos con la base de datos (opcional)
-    await sequelize.sync({ alter: true });
-    console.log("✅ Tablas sincronizadas con la BD");
-
-    app.listen(PORT, () => {
-      console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-    });
+    // No alter sync for production safety; confiar en la estructura creada manualmente.
+    await sequelize.sync(); // sync without alter
+    console.log('Tablas sincronizadas con la BD');
+    app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
   } catch (err) {
-    console.error("❌ No se pudo iniciar el servidor:", err.message);
+    console.error('No se pudo iniciar el servidor:', err.message);
+    process.exit(1);
   }
 };
 
 iniciarServidor();
 
-// ---- MI CUENTA (todas con auth) ----
-app.get("/api/me", auth, obtenerMiUsuario);
-app.get("/api/me/perfil", auth, obtenerMiPerfil);
-app.put("/api/me/perfil", auth, guardarMiPerfil);
+export default app;

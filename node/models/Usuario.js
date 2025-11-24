@@ -1,4 +1,3 @@
-
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/db.js";
 
@@ -29,7 +28,6 @@ export const Usuario = sequelize.define(
     },
   },
   {
-    // 👇 Coincidir exactamente con tu BD
     tableName: "usuarios",
     timestamps: true,
     createdAt: "creado_en",

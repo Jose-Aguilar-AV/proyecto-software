@@ -1,4 +1,3 @@
-
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/db.js";
 import { Usuario } from "./Usuario.js";
@@ -9,29 +8,26 @@ export const PerfilUsuario = sequelize.define(
     id_usuario: {
       type: DataTypes.BIGINT.UNSIGNED,
       primaryKey: true,
-      references: {
-        model: Usuario,
-        key: "id",
-      },
+      allowNull: false,
     },
     saldo_inicial: {
-      type: DataTypes.DECIMAL(12, 2),
-      defaultValue: 0.0,
+      type: DataTypes.DECIMAL(15,2),
+      allowNull: false,
+      defaultValue: 1000000.00,
     },
     perfil_inversion: {
-      type: DataTypes.ENUM("CONSERVADOR", "MODERADO", "AGRESIVO"),
-      defaultValue: "MODERADO",
+      type: DataTypes.ENUM('CONSERVADOR','MODERADO','AGRESIVO'),
+      defaultValue: 'MODERADO',
     },
     telefono: {
       type: DataTypes.STRING(30),
-    },
+      allowNull: true,
+    }
   },
   {
     tableName: "perfil_usuario",
-    timestamps: false,
+    timestamps: false
   }
 );
 
-// Relación 1:1
-Usuario.hasOne(PerfilUsuario, { foreignKey: "id_usuario" });
-PerfilUsuario.belongsTo(Usuario, { foreignKey: "id_usuario" });
+// Relaciones (definidas en app.js también)

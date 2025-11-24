@@ -14,18 +14,17 @@ export default function CrearPortafolio() {
       return;
     }
 
-    // Aquí luego enviarás los datos al backend (fetch/axios)
     console.log("Nuevo portafolio creado:", { nombre, monto, descripcion });
 
-    navigate("/portafolios"); // redirige de vuelta al listado
+    navigate("/portafolios");
   };
 
   return (
     <div style={pageStyle}>
       <header style={headerRow}>
-        <h2 style={titleStyle}>🆕 Crear Portafolio</h2>
+        <h2 style={titleStyle}>Crear Portafolio</h2>
         <button style={btnBack} onClick={() => navigate("/portafolios")}>
-          ⬅ Volver
+          Volver
         </button>
       </header>
 
@@ -59,14 +58,14 @@ export default function CrearPortafolio() {
         />
 
         <button type="submit" style={btnCreate}>
-          💾 Guardar Portafolio
+          Guardar Portafolio
         </button>
       </form>
     </div>
   );
 }
 
-/* 🎨 Estilos */
+/* Estilos */
 const pageStyle = {
   backgroundColor: "#f8fafc",
   minHeight: "100vh",

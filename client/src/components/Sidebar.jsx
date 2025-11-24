@@ -37,7 +37,7 @@ export default function Sidebar() {
         }}
       >
         {isOpen && (
-          <h2 style={{ margin: 0, fontWeight: 700, fontSize: "1.1rem" }}>Menú</h2>
+          <h2 style={{ margin: 0, fontWeight: 700, color: "#ffffffff", backgroundColor: "var(--uis-green)", fontSize: "1.1rem" }}>Menú</h2>
         )}
         <button
           onClick={toggleSidebar}

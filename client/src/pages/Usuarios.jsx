@@ -65,7 +65,7 @@ export default function Usuarios() {
       const m =
         err?.response?.data?.mensaje ||
         err?.response?.data?.error ||
-        "❌ No se pudo crear";
+        "No se pudo crear";
       setMsg(m);
     } finally {
       setCargando(false);
@@ -106,7 +106,7 @@ export default function Usuarios() {
       const m =
         err?.response?.data?.mensaje ||
         err?.response?.data?.error ||
-        "❌ No se pudo actualizar";
+        " No se pudo actualizar";
       setMsg(m);
     } finally {
       setCargando(false);
@@ -120,11 +120,11 @@ export default function Usuarios() {
     try {
       setCargando(true);
       await api.delete(`/api/usuarios/${u.id}`);
-      setMsg("🗑️ Usuario eliminado");
+      setMsg(" Usuario eliminado");
       await cargarUsuarios();
     } catch (err) {
       console.error(err);
-      setMsg("❌ No se pudo eliminar");
+      setMsg(" No se pudo eliminar");
     } finally {
       setCargando(false);
     }
