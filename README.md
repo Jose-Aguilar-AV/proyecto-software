@@ -85,12 +85,6 @@ git checkout -b nueva-funcionalidad
 
 ---
 
-## Licencia
-
-Este proyecto está bajo la licencia MIT.
-
----
-
 ## Autores
 
 - Jose Aguilar - 2221889
