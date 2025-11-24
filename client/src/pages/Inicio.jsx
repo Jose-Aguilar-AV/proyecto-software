@@ -1,8 +1,12 @@
+import { useUIStore } from "../store/useUIStore";
+
 export default function Inicio() {
+  const theme = useUIStore((s) => s.theme);
+
   return (
-    <div style={pageStyle}>
+    <div className={`page-container ${theme}`} style={pageStyle}>
       <header style={headerStyle}>
-        <h2 style={titleStyle}> Inicio</h2>
+        <h2 style={titleStyle}>Inicio</h2>
         <p style={subtitleStyle}>
           Bienvenido al panel principal de transacciones.
         </p>
@@ -35,9 +39,9 @@ export default function Inicio() {
 }
 
 const pageStyle = {
-  backgroundColor: "#f8fafc",
   minHeight: "100vh",
   padding: "30px",
+  transition: "background 0.3s ease, color 0.3s ease",
 };
 
 const headerStyle = {
@@ -61,11 +65,12 @@ const gridStyle = {
 };
 
 const cardStyle = {
-  background: "white",
+  background: "var(--card-bg)",
   borderRadius: "10px",
   padding: "20px",
   boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
   border: "1px solid #e2e8f0",
+  transition: "background 0.3s ease, color 0.3s ease",
 };
 
 const cardTitle = {
