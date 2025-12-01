@@ -1,4 +1,4 @@
-# Capitalia - Plataforma de Transacciones
+# Capitalia - Plataforma de Transacciones  -- Grupo: IPSUM DOLOR
 
 Plataforma web para simular y gestionar transacciones financieras, permitiendo a los usuarios visualizar su saldo, historial de transacciones y rendimiento de portafolios de inversión de manera clara e interactiva.
 
