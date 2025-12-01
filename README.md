@@ -6,6 +6,17 @@ Video explicativo: https://youtu.be/dR3F0sHz9ik?si=bnWjkHanNXIlsh-j
 
 ---
 
+## Autores
+
+- Jose Aguilar - 2221889
+- Yiber Romero - 2221835
+- Emerson Lopez - 2225507
+
+Grupo: Ipsum dolor
+Plataforma: Capitalia
+
+---
+
 ## Tecnologías utilizadas
 
 - Frontend: React.js, Chart.js, react-chartjs-2, react-router-dom
@@ -83,13 +94,4 @@ git checkout -b nueva-funcionalidad
 3. Hacer commit y push.
 4. Crear un Pull Request describiendo los cambios.
 
----
 
-## Autores
-
-- Jose Aguilar - 2221889
-- Yiber Romero - 2221835
-- Emerson Lopez - 2225507
-
-Grupo: Ipsum dolor
-Plataforma: Capitalia
